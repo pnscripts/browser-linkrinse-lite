@@ -13,7 +13,7 @@ Owner steps: sign in, create the listing, upload the file, paste the text below.
 - Tags: privacy, tracking, utm, links
 - Licence: MIT
 - Privacy policy: not needed (no data leaves the device); answer "no" to "does this add-on transmit data"
-- Support site: https://pnscripts.com/marketplace/linkrinse · support e-mail: office@pnscripts.com
+- Support site: https://pnscripts.com/marketplace/browser-linkrinse · support e-mail: office@pnscripts.com
 - Screenshots: `listing/amo/screenshot-1.png`, `listing/amo/screenshot-2.png` (1280×800)
 - Description: use README "What it does" section (plain text).
 - Notes for reviewers: "No build step: the zip is the src/ folder plus a generated manifest. Tests: npm test."

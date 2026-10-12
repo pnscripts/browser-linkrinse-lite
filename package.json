@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Removes tracking parameters (utm_*, fbclid, gclid and 35 more) from URLs. The rules engine of the Linkrinse Lite browser extension: no dependencies, no network.",
   "keywords": ["url", "tracking", "utm", "fbclid", "privacy", "clean-url", "query-string"],
-  "homepage": "https://pnscripts.com/marketplace/linkrinse",
+  "homepage": "https://pnscripts.com/marketplace/browser-linkrinse",
   "repository": { "type": "git", "url": "git+https://github.com/pnscripts/linkrinse-lite.git" },
   "bugs": { "url": "https://github.com/pnscripts/linkrinse-lite/issues" },
   "author": "PN Scripts <office@pnscripts.com> (https://pnscripts.com)",

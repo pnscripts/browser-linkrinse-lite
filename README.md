@@ -27,7 +27,7 @@ cleaning URLs in Node or in your own scripts.
 
 Lite is complete for what it does and never asks for payment. The full
 edition, Linkrinse, adds editable rules, redirect-page skipping, paused sites
-and "Copy clean link"; see https://pnscripts.com/marketplace/linkrinse.
+and "Copy clean link"; see https://pnscripts.com/marketplace/browser-linkrinse.
 
 ## Install
 
