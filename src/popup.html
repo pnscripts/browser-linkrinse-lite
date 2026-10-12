@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Linkrinse Lite</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header><strong>Linkrinse Lite</strong><span id="count" aria-live="polite">0 links cleaned</span></header>
+<label><input type="checkbox" id="cleanOnClick"> Clean links when I click them</label>
+<label><input type="checkbox" id="cleanAddressBar"> Clean the address bar when a page opens</label>
+<details>
+  <summary>What is removed</summary>
+  <ul id="rules"></ul>
+</details>
+<p class="note">Works offline. Nothing is sent anywhere.</p>
+<script src="rules.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
