@@ -26,8 +26,9 @@ test('every source file carries the MIT notice and the package is MIT', () => {
   assert.match(fs.readFileSync(path.join(__dirname, '..', 'LICENSE'), 'utf8'), /^MIT License/);
 });
 
-test('build manifests ask only for storage and declare no data collection on Firefox', () => {
+test('build manifests ask only for storage, no host or tabs permission, no data collection', () => {
   const build = fs.readFileSync(path.join(__dirname, '..', 'tools', 'build.mjs'), 'utf8');
   assert.match(build, /permissions: \['storage'\]/);
+  assert.doesNotMatch(build, /host_permissions|'tabs'/);
   assert.match(build, /data_collection_permissions: \{ required: \['none'\] \}/);
 });

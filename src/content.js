@@ -2,6 +2,7 @@
  * Linkrinse Lite content script. Runs in the top frame of every http(s) page.
  * 1. Cleans the address bar once settings load (history.replaceState, no reload).
  * 2. Rewrites a link's href just before a click or middle click follows it.
+ * Does nothing on sites the user paused in the popup.
  * Copyright (c) 2026 ПН СКРИПТС ЕООД / PN Scripts. MIT licence.
  */
 (function () {
@@ -11,13 +12,14 @@
   globalThis.__linkrinseLiteLoaded = true;
 
   let settings = null;
+  const paused = function () { return !settings || LR.isPaused(location.hostname, settings.pausedSites); };
 
   function report() {
     try { chrome.runtime.sendMessage({ type: 'linkrinse-lite:cleaned' }); } catch (e) { /* extension reloaded */ }
   }
 
   function cleanAddressBar() {
-    if (!settings || !settings.cleanAddressBar) return;
+    if (paused() || !settings.cleanAddressBar) return;
     const r = LR.cleanUrl(location.href);
     if (!r.changed) return;
     try {
@@ -27,7 +29,7 @@
   }
 
   function onClick(event) {
-    if (!settings || !settings.cleanOnClick) return;
+    if (paused() || !settings.cleanOnClick) return;
     if (event.type === 'auxclick' && event.button !== 1) return;
     const path = event.composedPath ? event.composedPath() : [event.target];
     let link = null;
@@ -41,6 +43,11 @@
     report();
   }
 
+  // The popup asks which site this tab is on (for "Pause on this site").
+  chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+    if (msg && msg.type === 'linkrinse-lite:site') sendResponse({ site: LR.siteOf(location.href) });
+  });
+
   document.addEventListener('click', onClick, true);
   document.addEventListener('auxclick', onClick, true);
 
@@ -49,7 +56,7 @@
     cleanAddressBar();
   });
   chrome.storage.onChanged.addListener(function (changes, area) {
-    if (area !== 'local' || (!changes.cleanOnClick && !changes.cleanAddressBar)) return;
+    if (area !== 'local' || (!changes.cleanOnClick && !changes.cleanAddressBar && !changes.pausedSites)) return;
     chrome.storage.local.get(null).then(function (stored) { settings = LR.settings(stored); });
   });
 })();

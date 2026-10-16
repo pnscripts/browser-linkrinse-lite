@@ -23,16 +23,24 @@ cleaning URLs in Node or in your own scripts.
   `_hsenc`, `mkt_tok` …), share ids (`igshid`, `igsh`) and five site-scoped
   rules (`si` on YouTube and Spotify, `ref_src` on X, `smid` on nytimes.com,
   `spm` on AliExpress). The popup lists them all.
-- **Two switches and a counter** in the popup. That is the whole interface.
+- **Pause on this site.** One click in the popup stops Linkrinse Lite on the
+  site you are on (and its subdomains); everywhere else it keeps cleaning.
+- **Careful by design.** Only the listed tracking parameters are removed.
+  Sign-in, search, sorting and app parameters are never touched; tests check
+  Google and Microsoft sign-in, GitHub OAuth, Google Search, Amazon review
+  sorting, Reddit search, Gmail, Twitch and YouTube addresses stay exactly as
+  they are (the pages aggressive cleaners are known to break).
+- **Two switches, a pause and a counter** in the popup. That is the whole
+  interface.
 
 Lite is complete for what it does and never asks for payment. The full
-edition, Linkrinse, adds editable rules, redirect-page skipping, paused sites
+edition, Linkrinse, adds editable rules, redirect-page skipping, a link tester
 and "Copy clean link"; see https://pnscripts.com/marketplace/browser-linkrinse.
 
 ## Install
 
-- Firefox: addons.mozilla.org (listing in preparation), or load
-  `dist/linkrinse-lite-firefox-1.0.0.zip` from `about:debugging`.
+- Firefox (desktop and Android): addons.mozilla.org (in review), or load
+  `dist/linkrinse-lite-firefox-1.1.0.zip` from `about:debugging`.
 - Chrome and Edge: Chrome Web Store (coming soon), or "Load unpacked" with
   `dist/chrome` from `chrome://extensions` in Developer mode.
 
@@ -52,6 +60,8 @@ touch. TypeScript types are included.
 
 ```
 npm test            # unit and packaging tests (node --test)
+node tools/e2e-chrome.mjs    # real Chrome: cleaning, counter, popup pause (PN_PLAYWRIGHT=…/playwright-core)
+node tools/e2e-firefox.mjs   # real Firefox via web-ext (WEB_EXT=…/web-ext)
 npm run build       # dist/chrome, dist/firefox, both zips and the npm tarball
 npm run images      # store images at exact sizes into listing/
 ```

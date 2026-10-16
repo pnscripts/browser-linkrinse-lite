@@ -1,18 +1,41 @@
 {
   "name": "@pnscripts/linkrinse-lite",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Removes tracking parameters (utm_*, fbclid, gclid and 35 more) from URLs. The rules engine of the Linkrinse Lite browser extension: no dependencies, no network.",
-  "keywords": ["url", "tracking", "utm", "fbclid", "privacy", "clean-url", "query-string"],
+  "keywords": [
+    "url",
+    "tracking",
+    "utm",
+    "fbclid",
+    "privacy",
+    "clean-url",
+    "query-string"
+  ],
   "homepage": "https://pnscripts.com/marketplace/browser-linkrinse",
-  "repository": { "type": "git", "url": "git+https://github.com/pnscripts/browser-linkrinse-lite.git" },
-  "bugs": { "url": "https://github.com/pnscripts/browser-linkrinse-lite/issues" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pnscripts/browser-linkrinse-lite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pnscripts/browser-linkrinse-lite/issues"
+  },
   "author": "PN Scripts <office@pnscripts.com> (https://pnscripts.com)",
   "license": "MIT",
   "main": "src/rules.js",
   "types": "src/rules.d.ts",
-  "files": ["src/rules.js", "src/rules.d.ts", "README.md", "LICENSE", "CHANGELOG.md"],
-  "engines": { "node": ">=18" },
-  "publishConfig": { "access": "public" },
+  "files": [
+    "src/rules.js",
+    "src/rules.d.ts",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "node --test test/*.test.js",
     "build": "node tools/build.mjs",

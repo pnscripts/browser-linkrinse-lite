@@ -47,7 +47,28 @@
     });
   }));
 
-  const DEFAULT_SETTINGS = Object.freeze({ cleanOnClick: true, cleanAddressBar: true, cleanedCount: 0 });
+  const DEFAULT_SETTINGS = Object.freeze({ cleanOnClick: true, cleanAddressBar: true, cleanedCount: 0, pausedSites: Object.freeze([]) });
+
+  /** The site key a pause applies to: the host without "www.", lower case; null for non-http(s). */
+  function siteOf(url) {
+    let u;
+    try { u = new URL(String(url)); } catch (e) { return null; }
+    if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
+    return u.hostname.toLowerCase().replace(/^www\./, '') || null;
+  }
+
+  /** Whether a host is paused: listed itself, or a subdomain of a listed site. */
+  function isPaused(host, pausedSites) {
+    const h = String(host || '').toLowerCase().replace(/^www\./, '');
+    return Array.isArray(pausedSites) && pausedSites.some(function (site) { return hostMatches(h, String(site)); });
+  }
+
+  /** The paused-sites list with one site switched on or off (sorted, no duplicates). */
+  function togglePaused(pausedSites, site, paused) {
+    const set = new Set((Array.isArray(pausedSites) ? pausedSites : []).filter(function (x) { return typeof x === 'string' && x; }));
+    if (paused) set.add(site); else set.delete(site);
+    return Array.from(set).sort();
+  }
 
   // A fragment that looks like "a=1&b=2" is treated like a query string.
   const QUERYLIKE_HASH_RE = /^[A-Za-z0-9_.\-\[\]%]+=[^&#]*(&[A-Za-z0-9_.\-\[\]%]+=[^&#]*)*$/;
@@ -122,16 +143,20 @@
   /** Stored settings with defaults filled in. */
   function settings(stored) {
     const s = Object.assign({}, DEFAULT_SETTINGS, stored || {});
-    return { cleanOnClick: s.cleanOnClick !== false, cleanAddressBar: s.cleanAddressBar !== false, cleanedCount: Number(s.cleanedCount) || 0 };
+    const paused = Array.isArray(s.pausedSites) ? s.pausedSites.filter(function (x) { return typeof x === 'string' && x; }) : [];
+    return { cleanOnClick: s.cleanOnClick !== false, cleanAddressBar: s.cleanAddressBar !== false, cleanedCount: Number(s.cleanedCount) || 0, pausedSites: paused };
   }
 
   return {
-    VERSION: '1.0.0',
+    VERSION: '1.1.0',
     RULES: RULES,
     DEFAULT_SETTINGS: DEFAULT_SETTINGS,
     hostMatches: hostMatches,
     matchRule: matchRule,
     cleanUrl: cleanUrl,
-    settings: settings
+    settings: settings,
+    siteOf: siteOf,
+    isPaused: isPaused,
+    togglePaused: togglePaused
   };
 });
