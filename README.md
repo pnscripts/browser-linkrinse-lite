@@ -63,10 +63,12 @@ npm test            # unit and packaging tests (node --test)
 node tools/e2e-chrome.mjs    # real Chrome: cleaning, counter, popup pause (PN_PLAYWRIGHT=…/playwright-core)
 node tools/e2e-firefox.mjs   # real Firefox via web-ext (WEB_EXT=…/web-ext)
 npm run build       # dist/chrome, dist/firefox, both zips and the npm tarball
+npm run lint        # the build, then Mozilla's addons-linter on dist/firefox
 npm run images      # store images at exact sizes into listing/
 ```
 
-No dependencies. Nothing is minified or generated, so AMO needs no separate
+The extension and the npm package have no dependencies; addons-linter is a
+development tool only. Nothing is minified or generated, so AMO needs no separate
 source package.
 
 ## Privacy
