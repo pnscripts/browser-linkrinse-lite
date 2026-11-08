@@ -39,6 +39,10 @@
   "scripts": {
     "test": "node --test test/*.test.js",
     "build": "node tools/build.mjs",
-    "images": "node tools/render.mjs tools/images.mjs"
+    "images": "node tools/render.mjs tools/images.mjs",
+    "lint": "node tools/build.mjs && addons-linter dist/firefox"
+  },
+  "devDependencies": {
+    "addons-linter": "10.15.0"
   }
 }
