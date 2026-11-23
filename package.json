@@ -43,6 +43,6 @@
     "lint": "node tools/build.mjs && addons-linter dist/firefox"
   },
   "devDependencies": {
-    "addons-linter": "10.15.0"
+    "addons-linter": "10.16.0"
   }
 }
